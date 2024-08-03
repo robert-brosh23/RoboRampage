@@ -1,2 +1,2 @@
 # RoboRampage
-tutorial Godot Project
+tutorial Godot project

@@ -1,0 +1,15 @@
+RemoteTransform3D
+Camera3D
+SubViewport
+SubViewportContainer
+AnimationPlayer
+AnimationTree
+GPUParticles3D
+RayCast3D
+Timer
+MeshInstance3D
+NavigationAgent3D
+CharacterBody3D
+NavigationRegion3D
+CSGCylinder3D
+CSGPolygon3D

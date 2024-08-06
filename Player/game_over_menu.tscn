@@ -1,11 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://bkju7pupdcrs6"]
+[gd_scene load_steps=8 format=3 uid="uid://bkju7pupdcrs6"]
 
 [ext_resource type="FontFile" uid="uid://uprfc0xym5b4" path="res://Assets/Encode_Sans_SC/static/EncodeSansSC-Black.ttf" id="1_w7csj"]
 [ext_resource type="Script" path="res://Player/game_over_menu.gd" id="2_sbt6h"]
+[ext_resource type="Shader" uid="uid://c7rb8ed3iiudx" path="res://Player/game_over_menu.tres" id="3_tf6m5"]
 
 [sub_resource type="Theme" id="Theme_u8qm2"]
 default_font = ExtResource("1_w7csj")
 default_font_size = 64
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_axrkq"]
+shader = ExtResource("3_tf6m5")
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_hef0v"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_jm6vn"]
 font_size = 96
@@ -18,8 +24,19 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+rotation = 0.000546182
 theme = SubResource("Theme_u8qm2")
 script = ExtResource("2_sbt6h")
+
+[node name="BackgroundBlur" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_axrkq")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("PlaceholderTexture2D_hef0v")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1

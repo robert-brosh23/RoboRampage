@@ -3,13 +3,40 @@
 [ext_resource type="Script" path="res://Player/player.gd" id="1_kguvg"]
 [ext_resource type="Script" path="res://Player/SmoothCamera.gd" id="2_vohyi"]
 [ext_resource type="Script" path="res://Player/Crosshair.gd" id="3_6wicb"]
-[ext_resource type="PackedScene" uid="uid://c87u7ksvq7jgp" path="res://Weapons/SMG.tscn" id="3_okhf8"]
+[ext_resource type="PackedScene" uid="uid://utmextfc0mu4" path="res://Weapons/rifle.tscn" id="3_kq8er"]
 [ext_resource type="Texture2D" uid="uid://wrtxf08srov7" path="res://Player/damage.png" id="5_snqgd"]
 [ext_resource type="PackedScene" uid="uid://bkju7pupdcrs6" path="res://Player/game_over_menu.tscn" id="6_wlu4u"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_r5233"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_x4s3u"]
+
+[sub_resource type="Animation" id="Animation_jieht"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_r0vys"]
 resource_name = "TakeDamage"
@@ -39,33 +66,6 @@ tracks/1/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_jieht"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0bkt2"]
 _data = {
 "RESET": SubResource("Animation_jieht"),
@@ -89,11 +89,10 @@ top_level = true
 cull_mask = 1048573
 script = ExtResource("2_vohyi")
 
-[node name="SMG" parent="CameraPivot/SmoothCamera" instance=ExtResource("3_okhf8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.02, -0.813)
-
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="CameraPivot/SmoothCamera"]
 remote_path = NodePath("../../../SubViewportContainer/SubViewport/WeaponCamera")
+
+[node name="Rifle" parent="CameraPivot/SmoothCamera" instance=ExtResource("3_kq8er")]
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 anchors_preset = 15

@@ -10,8 +10,10 @@ const JUMP_VELOCITY = 4.5
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
+
 @onready var navigation_agent_3d: NavigationAgent3D = $NavigationAgent3D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var visor: MeshInstance3D = $Visor
 
 var player: CharacterBody3D
 var provoked := false
@@ -26,6 +28,7 @@ var hitpoints: int = max_hitpoints:
 
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("player")
+	visor.mesh.material.albedo_color = Color(1,0,0)
 
 
 func _process(delta: float) -> void:

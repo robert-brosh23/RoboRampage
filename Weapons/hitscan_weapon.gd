@@ -12,12 +12,28 @@ extends Node3D
 @onready var weapon_position: Vector3 = weapon_mesh.position
 @onready var ray_cast: RayCast3D = $RayCast3D
 
+var equipped: bool = false:
+	set(equipped_in):
+		if equipped_in == true:
+			visible = true
+		else:
+			visible = false
+		equipped = equipped_in
+	
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	process_shooting(delta)
+
+
+func process_shooting(delta: float):
+	if !equipped:
+		return
 	if automatic:
 		if Input.is_action_pressed("fire"):
 			if cooldown_timer.is_stopped():
@@ -38,6 +54,8 @@ func shoot() -> void:
 	weapon_mesh.position.z += recoil
 	if collider is Enemy:
 		collider.hitpoints -= damage
+	if collider == null:
+		return
 	var spark = sparks.instantiate()
 	add_child(spark)
 	spark.global_position = ray_cast.get_collision_point()

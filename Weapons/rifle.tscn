@@ -32,23 +32,9 @@ recoil = 0.3
 damage = 70
 automatic = false
 weapon_mesh = NodePath("Rifle_mesh")
-muzzle_flash = NodePath("MuzzleFlash")
+muzzle_flash = NodePath("Rifle_mesh/MuzzleFlash")
 
-[node name="MuzzleFlash" type="GPUParticles3D" parent="." index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.398066, -0.301951, -1.85764)
-layers = 2
-material_override = SubResource("StandardMaterial3D_o52yv")
-cast_shadow = 0
-emitting = false
-lifetime = 0.07
-one_shot = true
-explosiveness = 1.0
-fixed_fps = 60
-local_coords = true
-process_material = SubResource("ParticleProcessMaterial_76r25")
-draw_pass_1 = SubResource("BoxMesh_8mk4x")
-
-[node name="Rifle_mesh" parent="." index="3" instance=ExtResource("2_l1xd4")]
+[node name="Rifle_mesh" parent="." index="2" instance=ExtResource("2_l1xd4")]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0.4, -0.3, -0.9)
 
 [node name="ar15_ar15 1_0" parent="Rifle_mesh/Sketchfab_model/461cfe1ec0d449419f46eb1d7cd446de_fbx/RootNode/ar15" index="0"]
@@ -86,5 +72,19 @@ layers = 2
 
 [node name="gps_gps_0" parent="Rifle_mesh/Sketchfab_model/461cfe1ec0d449419f46eb1d7cd446de_fbx/RootNode/gps" index="0"]
 layers = 2
+
+[node name="MuzzleFlash" type="GPUParticles3D" parent="Rifle_mesh" index="1"]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -0.0077368, -0.00780368, -3.83055)
+layers = 2
+material_override = SubResource("StandardMaterial3D_o52yv")
+cast_shadow = 0
+emitting = false
+lifetime = 0.07
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_76r25")
+draw_pass_1 = SubResource("BoxMesh_8mk4x")
 
 [editable path="Rifle_mesh"]

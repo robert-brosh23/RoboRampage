@@ -1,9 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://c4udqyo1o6n61"]
+[gd_scene load_steps=14 format=3 uid="uid://c4udqyo1o6n61"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_kguvg"]
 [ext_resource type="Script" path="res://Player/SmoothCamera.gd" id="2_vohyi"]
 [ext_resource type="Script" path="res://Player/Crosshair.gd" id="3_6wicb"]
 [ext_resource type="PackedScene" uid="uid://utmextfc0mu4" path="res://Weapons/rifle.tscn" id="3_kq8er"]
+[ext_resource type="Script" path="res://Player/WeaponSwap.gd" id="3_ocpxw"]
+[ext_resource type="PackedScene" uid="uid://c87u7ksvq7jgp" path="res://Weapons/SMG.tscn" id="3_okhf8"]
 [ext_resource type="Texture2D" uid="uid://wrtxf08srov7" path="res://Player/damage.png" id="5_snqgd"]
 [ext_resource type="PackedScene" uid="uid://bkju7pupdcrs6" path="res://Player/game_over_menu.tscn" id="6_wlu4u"]
 
@@ -92,7 +94,19 @@ script = ExtResource("2_vohyi")
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="CameraPivot/SmoothCamera"]
 remote_path = NodePath("../../../SubViewportContainer/SubViewport/WeaponCamera")
 
-[node name="Rifle" parent="CameraPivot/SmoothCamera" instance=ExtResource("3_kq8er")]
+[node name="WeaponSwap" type="Node3D" parent="CameraPivot/SmoothCamera"]
+script = ExtResource("3_ocpxw")
+weapon_lock_out_threshold = 0.05
+
+[node name="WeaponLockoutTimer" type="Timer" parent="CameraPivot/SmoothCamera/WeaponSwap"]
+one_shot = true
+autostart = true
+
+[node name="Weapons" type="Node3D" parent="CameraPivot/SmoothCamera/WeaponSwap"]
+
+[node name="Rifle" parent="CameraPivot/SmoothCamera/WeaponSwap/Weapons" instance=ExtResource("3_kq8er")]
+
+[node name="SMG" parent="CameraPivot/SmoothCamera/WeaponSwap/Weapons" instance=ExtResource("3_okhf8")]
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 anchors_preset = 15

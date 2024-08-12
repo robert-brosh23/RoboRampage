@@ -30,6 +30,7 @@ size = Vector3(0.1, 0.1, 0.1)
 fire_rate = 8.0
 recoil = 0.3
 damage = 70
+clip_size = 8
 automatic = false
 weapon_mesh = NodePath("Rifle_mesh")
 muzzle_flash = NodePath("Rifle_mesh/MuzzleFlash")

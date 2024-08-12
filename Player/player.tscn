@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c4udqyo1o6n61"]
+[gd_scene load_steps=17 format=3 uid="uid://c4udqyo1o6n61"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_kguvg"]
 [ext_resource type="Script" path="res://Player/SmoothCamera.gd" id="2_vohyi"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c87u7ksvq7jgp" path="res://Weapons/SMG.tscn" id="3_okhf8"]
 [ext_resource type="Texture2D" uid="uid://wrtxf08srov7" path="res://Player/damage.png" id="5_snqgd"]
 [ext_resource type="PackedScene" uid="uid://bkju7pupdcrs6" path="res://Player/game_over_menu.tscn" id="6_wlu4u"]
+[ext_resource type="Script" path="res://Player/PlayerUI.gd" id="9_oklyi"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_r5233"]
 
@@ -73,6 +74,12 @@ _data = {
 "RESET": SubResource("Animation_jieht"),
 "TakeDamage": SubResource("Animation_r0vys")
 }
+
+[sub_resource type="LabelSettings" id="LabelSettings_ahq2e"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_6utrb"]
+font_size = 44
 
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 script = ExtResource("1_kguvg")
@@ -154,3 +161,35 @@ libraries = {
 
 [node name="GameOverMenu" parent="." instance=ExtResource("6_wlu4u")]
 visible = false
+
+[node name="PlayerUI" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+script = ExtResource("9_oklyi")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerUI"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_constants/separation = 20
+
+[node name="AmmoLabel" type="Label" parent="PlayerUI/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "Ammo"
+label_settings = SubResource("LabelSettings_ahq2e")
+
+[node name="ClipLabel" type="Label" parent="PlayerUI/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "AmmoInClip"
+label_settings = SubResource("LabelSettings_6utrb")

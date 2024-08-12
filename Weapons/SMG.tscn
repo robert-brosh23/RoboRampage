@@ -88,6 +88,8 @@ _data = {
 }
 
 [node name="SMG" node_paths=PackedStringArray("weapon_mesh", "muzzle_flash", "animation_player") instance=ExtResource("1_nr0gu")]
+clip_size = 24
+reload_time = 0.5
 weapon_mesh = NodePath("SMG")
 muzzle_flash = NodePath("SMG/MuzzleFlash")
 animation_player = NodePath("AnimationPlayer")

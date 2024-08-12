@@ -7,6 +7,7 @@ extends Node3D
 @export var weapon_mesh : Node3D
 @export var muzzle_flash : GPUParticles3D
 @export var sparks : PackedScene
+@export var animation_player: AnimationPlayer
 
 @onready var cooldown_timer: Timer = $CooldownTimer
 @onready var weapon_position: Vector3 = weapon_mesh.position
@@ -16,10 +17,19 @@ var equipped: bool = false:
 	set(equipped_in):
 		if equipped_in == true:
 			visible = true
+			if animation_player == null:
+				printt("animation player for weapon ", get_name(), " not attached")
+				equip_weapon_default()
+			else:
+				animation_player.play("equip")
+			var timer:SceneTreeTimer = get_tree().create_timer(.3)
+			timer.timeout.connect(set.bind("can_shoot", true))
 		else:
+			can_shoot = false
 			visible = false
 		equipped = equipped_in
-	
+
+var can_shoot = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -32,7 +42,7 @@ func _process(delta: float) -> void:
 
 
 func process_shooting(delta: float):
-	if !equipped:
+	if !can_shoot:
 		return
 	if automatic:
 		if Input.is_action_pressed("fire"):
@@ -59,3 +69,16 @@ func shoot() -> void:
 	var spark = sparks.instantiate()
 	add_child(spark)
 	spark.global_position = ray_cast.get_collision_point()
+	
+
+func equip_weapon_default() -> void:
+	var tween_rotation = create_tween()
+	var tween_position = create_tween()
+	
+	weapon_mesh.rotation_degrees.x = 58.0
+	tween_rotation.tween_property(weapon_mesh, "rotation_degrees", Vector3(0, 0, 0), .3)
+	
+	var equip_position = weapon_mesh.position
+	weapon_mesh.position = Vector3(equip_position.x, equip_position.y + .7, equip_position.z + .7)
+	tween_position.tween_property(weapon_mesh, "position", equip_position, .3)
+

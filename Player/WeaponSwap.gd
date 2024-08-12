@@ -18,7 +18,7 @@ func _ready() -> void:
 	for weapon in weapons:
 		weapon.equipped = false
 	curr_weapon_index = 0
-	swap_to_weapon(weapons[curr_weapon_index], weapons[curr_weapon_index])
+	swap_to_weapon(weapons[curr_weapon_index], null)
 	
 
 func _process(delta: float) -> void:
@@ -48,6 +48,9 @@ func process_input(delta: float) -> void:
 
 
 func swap_to_weapon(weapon_in: Node3D, previous_weapon: Node3D) -> void:
-	previous_weapon.equipped = false
+	if previous_weapon == weapon_in:
+		return
+	if previous_weapon != null:
+		previous_weapon.equipped = false
 	weapon_in.equipped = true
 	weapon_lockout_timer.start()

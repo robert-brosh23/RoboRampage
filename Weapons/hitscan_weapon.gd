@@ -30,6 +30,7 @@ var equipped: bool = false:
 			var timer:SceneTreeTimer = get_tree().create_timer(.3)
 			timer.timeout.connect(set.bind("can_shoot", true))
 		else:
+			reload_timer.stop()
 			can_shoot = false
 			visible = false
 		equipped = equipped_in

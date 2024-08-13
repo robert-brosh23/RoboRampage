@@ -159,9 +159,6 @@ libraries = {
 "": SubResource("AnimationLibrary_0bkt2")
 }
 
-[node name="GameOverMenu" parent="." instance=ExtResource("6_wlu4u")]
-visible = false
-
 [node name="PlayerUI" type="MarginContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
@@ -193,3 +190,14 @@ size_flags_horizontal = 0
 size_flags_vertical = 8
 text = "AmmoInClip"
 label_settings = SubResource("LabelSettings_6utrb")
+
+[node name="GameOverMenu" parent="." instance=ExtResource("6_wlu4u")]
+visible = false
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 1112.0
+offset_bottom = 608.0
+rotation = 0.0

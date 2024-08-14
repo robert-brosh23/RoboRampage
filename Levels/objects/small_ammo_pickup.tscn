@@ -1,0 +1,41 @@
+[gd_scene load_steps=8 format=3 uid="uid://b1n51m1ni2ktu"]
+
+[ext_resource type="Script" path="res://Levels/objects/AmmoPickup.gd" id="1_4m0ou"]
+[ext_resource type="Shader" uid="uid://yj2yu2fbmxyb" path="res://Levels/objects/frennel_aura.tres" id="2_8gdbj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rjjrd"]
+albedo_color = Color(0.451322, 0.646214, 0.969657, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4bunk"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cop1w"]
+render_priority = 0
+shader = ExtResource("2_8gdbj")
+
+[sub_resource type="SphereMesh" id="SphereMesh_7uw56"]
+radius = 0.9
+height = 1.8
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_nlfr4"]
+radius = 1.0
+
+[node name="SmallAmmoPickup" type="Area3D"]
+script = ExtResource("1_4m0ou")
+ammo_type = 1
+amount = 50
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.875, -0.216506, 0.433013, 0.433013, 0.75, -0.5, -0.216506, 0.625, 0.75, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_rjjrd")
+mesh = SubResource("BoxMesh_4bunk")
+
+[node name="FresnelAura" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(0.875, 0.433013, -0.216507, -0.216507, 0.75, 0.625, 0.433013, -0.5, 0.75, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_cop1w")
+mesh = SubResource("SphereMesh_7uw56")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_nlfr4")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

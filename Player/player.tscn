@@ -170,6 +170,7 @@ theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
 script = ExtResource("9_oklyi")
+metadata/_edit_use_anchors_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PlayerUI"]
 layout_mode = 2
@@ -200,4 +201,6 @@ offset_left = 40.0
 offset_top = 40.0
 offset_right = 1112.0
 offset_bottom = 608.0
+grow_horizontal = 1
+grow_vertical = 1
 rotation = 0.0

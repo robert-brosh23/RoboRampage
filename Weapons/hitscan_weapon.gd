@@ -4,14 +4,15 @@ extends Node3D
 @export var recoil := .05
 @export var damage := 10
 @export var clip_size := 20
+@export var ammo_type : AmmoHandler.ammo_type
 @export var automatic := true
-@export var starting_clips := 5
 @export var reload_time := 1.0
 
 @export var weapon_mesh : Node3D
 @export var muzzle_flash : GPUParticles3D
 @export var sparks : PackedScene
 @export var animation_player: AnimationPlayer
+@export var ammo_handler: AmmoHandler
 
 @onready var cooldown_timer: Timer = $CooldownTimer
 @onready var weapon_position: Vector3 = weapon_mesh.position
@@ -37,13 +38,8 @@ var equipped: bool = false:
 
 var can_shoot = false
 var bullets_in_clip
-var total_ammo
 
 func _ready() -> void:
-	total_ammo = 0
-	if starting_clips <= 0:
-		return
-	total_ammo = clip_size * (starting_clips - 1)
 	bullets_in_clip = clip_size
 	reload_timer.wait_time = reload_time
 
@@ -97,7 +93,7 @@ func shoot() -> void:
 func reload() -> void:
 	if bullets_in_clip == clip_size:
 		return
-	if total_ammo <= 0:
+	if !ammo_handler.has_ammo(ammo_type):
 		print("cannot reload, out of ammo")
 		return
 	can_shoot = false
@@ -107,8 +103,7 @@ func reload() -> void:
 
 func finish_reload() -> void:
 	can_shoot = true
-	bullets_in_clip = clip_size
-	total_ammo -= clip_size
+	bullets_in_clip += ammo_handler.get_ammo_for_reload(ammo_type, clip_size - bullets_in_clip)
 
 
 func play_animation_equip_weapon_default() -> void:

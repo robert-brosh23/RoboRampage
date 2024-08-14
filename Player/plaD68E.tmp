@@ -138,7 +138,6 @@ ammo_type = 1
 ammo_handler = NodePath("../../../AmmoHandler")
 
 [node name="AmmoHandler" type="Node" parent="SubViewportContainer/SubViewport/WeaponCamera"]
-unique_name_in_owner = true
 script = ExtResource("6_kpoql")
 starting_small_ammo = 50
 starting_mid_ammo = 20

@@ -66,6 +66,12 @@ func _input(event: InputEvent) -> void:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	if event is InputEventMouseMotion:
 		mouse_motion = -event.relative * sensitivity
+	if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE && event.is_action_pressed("fire"):
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		weapon_handler.get_current_weapon().can_shoot = false
+		await get_tree().create_timer(.05).timeout
+		weapon_handler.get_current_weapon().can_shoot = true
+		
 
 func handle_camera_rotation() -> void:
 	rotate_y(mouse_motion.x)

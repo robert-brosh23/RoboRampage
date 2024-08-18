@@ -13,11 +13,16 @@ extends Node3D
 @export var sparks : PackedScene
 @export var animation_player: AnimationPlayer
 @export var ammo_handler: AmmoHandler
+@export var scope_in_transform: Vector3
 
 @onready var cooldown_timer: Timer = $CooldownTimer
 @onready var weapon_position: Vector3 = weapon_mesh.position
 @onready var ray_cast: RayCast3D = $RayCast3D
 @onready var reload_timer: Timer = $ReloadTimer
+@onready var aim_down_sights_timer: Timer = $AimDownSightsTimer
+@onready var stop_aim_down_sights_timer: Timer = $StopAimDownSightsTimer
+
+
 
 var equipped: bool = false:
 	set(equipped_in):
@@ -38,6 +43,7 @@ var equipped: bool = false:
 
 var can_shoot = false
 var bullets_in_clip
+var is_aiming = false
 
 func _ready() -> void:
 	bullets_in_clip = clip_size
@@ -55,16 +61,20 @@ func process_shooting(delta: float):
 	if Input.is_action_just_pressed("reload"):
 		if cooldown_timer.is_stopped():
 			reload()
-	if automatic && bullets_in_clip > 0:
+	elif automatic && bullets_in_clip > 0:
 		if Input.is_action_pressed("fire"):
 			if cooldown_timer.is_stopped():
 				shoot()
-	else:
-		if Input.is_action_just_pressed("fire"):
-			if cooldown_timer.is_stopped():
-				shoot()
-			
-	weapon_mesh.position = weapon_mesh.position.lerp(weapon_position, delta * 10.0)
+	elif Input.is_action_just_pressed("fire"):
+		if cooldown_timer.is_stopped():
+			shoot()
+	elif !is_aiming && Input.is_action_pressed("aim_down_sights"):
+		aim_down_sights()
+	elif is_aiming && !Input.is_action_pressed("aim_down_sights"):
+		stop_aim_down_sights()
+		
+	if !is_aiming:
+		weapon_mesh.position = weapon_mesh.position.lerp(weapon_position, delta * 10.0)
 
 
 func shoot() -> void:
@@ -89,6 +99,29 @@ func shoot() -> void:
 	add_child(spark)
 	spark.global_position = ray_cast.get_collision_point()
 	
+	
+func aim_down_sights() -> void:
+	is_aiming = true
+	can_shoot = false
+	aim_down_sights_timer.start()
+	play_animation_aim_down_sights_default()
+	
+	
+func finish_aim_down_sights() -> void:
+	can_shoot = true
+	weapon_mesh.visible = false
+
+
+func stop_aim_down_sights() -> void:
+	can_shoot = false
+	stop_aim_down_sights_timer.start()
+	play_animation_stop_aim_down_sights_default()
+	
+	
+func finish_stop_aim_down_sights() -> void:
+	is_aiming = false
+	can_shoot = true
+
 
 func reload() -> void:
 	if bullets_in_clip == clip_size:
@@ -118,11 +151,22 @@ func play_animation_equip_weapon_default() -> void:
 	tween_position.tween_property(weapon_mesh, "position", equip_position, .3)
 
 
+func play_animation_aim_down_sights_default() -> void:
+	var tween_position = create_tween()
+	tween_position.tween_property(weapon_mesh, "position", scope_in_transform, .1)
+
+
+func play_animation_stop_aim_down_sights_default() -> void:
+	var tween_position = create_tween()
+	var tween_visible = create_tween()
+	
+	tween_position.tween_property(weapon_mesh, "position", Vector3(0,0,0), .1)
+	tween_visible.tween_property(weapon_mesh, "visible", true, .2)
+
 func play_animation_reload_default() -> void:
 	var tween_rotation = create_tween()
-	var tween_position = create_tween()
 	
 	tween_rotation.tween_property(weapon_mesh, "rotation_degrees", Vector3(60.0, 0, 0), reload_time/3.0)
 	tween_rotation.tween_interval(reload_time/3.0)
 	tween_rotation.tween_property(weapon_mesh, "rotation_degrees", Vector3(0, 0, 0), reload_time/3.0)
-
+	

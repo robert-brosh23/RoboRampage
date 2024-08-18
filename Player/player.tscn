@@ -132,6 +132,7 @@ autostart = true
 
 [node name="Rifle" parent="SubViewportContainer/SubViewport/WeaponCamera/WeaponHandler/Weapons" node_paths=PackedStringArray("ammo_handler") instance=ExtResource("3_kq8er")]
 ammo_handler = NodePath("../../../AmmoHandler")
+scope_in_transform = Vector3(0, 0, 0)
 
 [node name="SMG" parent="SubViewportContainer/SubViewport/WeaponCamera/WeaponHandler/Weapons" node_paths=PackedStringArray("ammo_handler") instance=ExtResource("3_okhf8")]
 ammo_type = 1

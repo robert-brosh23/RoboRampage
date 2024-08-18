@@ -54,3 +54,7 @@ func swap_to_weapon(weapon_in: Node3D, previous_weapon: Node3D) -> void:
 		previous_weapon.equipped = false
 	weapon_in.equipped = true
 	weapon_lockout_timer.start()
+	
+	
+func get_current_weapon():
+	return weapons[curr_weapon_index]

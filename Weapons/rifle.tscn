@@ -34,6 +34,7 @@ clip_size = 8
 automatic = false
 weapon_mesh = NodePath("Rifle_mesh")
 muzzle_flash = NodePath("Rifle_mesh/MuzzleFlash")
+scope_in_transform = Vector3(-0.397, 0.14, 0.6)
 
 [node name="Rifle_mesh" parent="." index="2" instance=ExtResource("2_l1xd4")]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0.4, -0.3, -0.9)

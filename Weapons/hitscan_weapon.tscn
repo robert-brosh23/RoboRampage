@@ -16,4 +16,14 @@ target_position = Vector3(0, 0, -100)
 [node name="ReloadTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="AimDownSightsTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="StopAimDownSightsTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
 [connection signal="timeout" from="ReloadTimer" to="." method="finish_reload"]
+[connection signal="timeout" from="AimDownSightsTimer" to="." method="finish_aim_down_sights"]
+[connection signal="timeout" from="StopAimDownSightsTimer" to="." method="finish_stop_aim_down_sights"]

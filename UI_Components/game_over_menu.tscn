@@ -1,15 +1,15 @@
 [gd_scene load_steps=8 format=3 uid="uid://bkju7pupdcrs6"]
 
-[ext_resource type="FontFile" uid="uid://uprfc0xym5b4" path="res://Assets/Encode_Sans_SC/static/EncodeSansSC-Black.ttf" id="1_w7csj"]
-[ext_resource type="Script" path="res://Player/game_over_menu.gd" id="2_sbt6h"]
-[ext_resource type="Shader" uid="uid://c7rb8ed3iiudx" path="res://Player/game_over_menu.tres" id="3_tf6m5"]
+[ext_resource type="FontFile" uid="uid://uprfc0xym5b4" path="res://Assets/Encode_Sans_SC/static/EncodeSansSC-Black.ttf" id="1_s67a3"]
+[ext_resource type="Script" path="res://UI_Components/game_over_menu.gd" id="2_myjqi"]
+[ext_resource type="Shader" uid="uid://c7rb8ed3iiudx" path="res://UI_Components/game_over_menu.tres" id="3_qa1h3"]
 
 [sub_resource type="Theme" id="Theme_u8qm2"]
-default_font = ExtResource("1_w7csj")
+default_font = ExtResource("1_s67a3")
 default_font_size = 64
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_axrkq"]
-shader = ExtResource("3_tf6m5")
+shader = ExtResource("3_qa1h3")
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_hef0v"]
 
@@ -26,7 +26,7 @@ grow_horizontal = 2
 grow_vertical = 2
 rotation = 0.000546182
 theme = SubResource("Theme_u8qm2")
-script = ExtResource("2_sbt6h")
+script = ExtResource("2_myjqi")
 
 [node name="BackgroundBlur" type="TextureRect" parent="."]
 material = SubResource("ShaderMaterial_axrkq")

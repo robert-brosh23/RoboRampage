@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://ctiwswy52yuye"]
+[gd_scene load_steps=5 format=3 uid="uid://ctiwswy52yuye"]
 
 [ext_resource type="Script" path="res://Weapons/hitscan_weapon.gd" id="1_ht8fr"]
 [ext_resource type="PackedScene" uid="uid://by5jplljbjsvi" path="res://Weapons/Sparks.tscn" id="2_7d78s"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="3_w5j13"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="4_rqvdb"]
 
 [node name="HitscanWeapon" type="Node3D"]
 script = ExtResource("1_ht8fr")
@@ -23,6 +25,13 @@ one_shot = true
 [node name="StopAimDownSightsTimer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("3_w5j13")
+track_in_editor = true
+
+[node name="CompoundState" type="Node" parent="StateChart"]
+script = ExtResource("4_rqvdb")
 
 [connection signal="timeout" from="ReloadTimer" to="." method="finish_reload"]
 [connection signal="timeout" from="AimDownSightsTimer" to="." method="finish_aim_down_sights"]

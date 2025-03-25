@@ -11,6 +11,8 @@ const SPEED = 5.0
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var mouse_motion := Vector2.ZERO
+var experience: int = 0
+var experience_needed: int = 100
 var hitpoints: int = max_hitpoints:
 	set(value):
 		if value < hitpoints:
@@ -20,17 +22,18 @@ var hitpoints: int = max_hitpoints:
 		print(hitpoints)
 		if hitpoints <= 0:
 			game_over_menu.game_over()
-		
+			
 @onready var camera_pivot: Node3D = $CameraPivot
 @onready var damage_animation_player: AnimationPlayer = $DamageTexture/DamageAnimationPlayer
 @onready var game_over_menu: Control = $GameOverMenu
 @onready var weapon_handler: Node3D = $SubViewportContainer/SubViewport/WeaponCamera/WeaponHandler
 @onready var ammo_handler: AmmoHandler = %AmmoHandler
-
+@onready var level_up_menu: Control = $LevelUpMenu
 
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
 
 func _physics_process(delta: float) -> void:
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
@@ -80,4 +83,18 @@ func handle_camera_rotation() -> void:
 		camera_pivot.rotation_degrees.x, -90.0, 90.0
 	)
 	mouse_motion = Vector2.ZERO
+	
+
+func gain_experience(exp_gain: int) -> void:
+	experience += exp_gain
+	printt(exp_gain, " exp")
+	if experience >= experience_needed:
+		level_up()
+	
+
+func level_up() -> void:
+	experience = experience % experience_needed
+	experience_needed = experience_needed + 50
+	printt("level up!\nexp: ", experience, "/", experience_needed)
+	level_up_menu.level_up()
 	

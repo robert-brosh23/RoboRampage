@@ -15,6 +15,7 @@ var ammo_storage := {
 }
 
 func _ready() -> void:
+	add_to_group("ammo_handler")
 	ammo_storage[ammo_type.BULLET] = starting_mid_ammo
 	ammo_storage[ammo_type.SMALL_BULLET] = starting_small_ammo
 

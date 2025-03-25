@@ -3,6 +3,7 @@ class_name Enemy
 
 const SPEED = 3.0
 const JUMP_VELOCITY = 4.5
+const EXP_GIVEN_ON_KILL = 25
 
 @export var max_hitpoints := 100
 @export var attack_range := 1.5
@@ -17,11 +18,12 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 var player: CharacterBody3D
 var provoked := false
-var aggro_range := 12.0
+var aggro_range := 500.0
 var hitpoints: int = max_hitpoints:
 	set(value):
 		hitpoints = value
 		if hitpoints <= 0:
+			player.gain_experience(EXP_GIVEN_ON_KILL)
 			queue_free()
 		provoked = true
 

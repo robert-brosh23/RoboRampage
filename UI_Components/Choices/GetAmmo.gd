@@ -3,7 +3,6 @@ extends Choice
 var ammo_handler: AmmoHandler
 
 func _ready() -> void:
-	id = 0
 	ammo_handler = get_tree().get_first_node_in_group("ammo_handler")
 
 func _on_pressed() -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bkju7pupdcrs6"]
+[gd_scene load_steps=8 format=3 uid="uid://b6sws06vx86x7"]
 
 [ext_resource type="FontFile" uid="uid://uprfc0xym5b4" path="res://Assets/Encode_Sans_SC/static/EncodeSansSC-Black.ttf" id="1_s67a3"]
 [ext_resource type="Script" path="res://UI_Components/game_over_menu.gd" id="2_myjqi"]
